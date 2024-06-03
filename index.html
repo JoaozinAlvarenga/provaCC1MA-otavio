@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROVA CC1MA</title>
+
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <header>
+        <h1 class="header">PROVA CC1MA</h1>
+    </header>
+
+    <main>
+        <section id="formulario" class="formulario">
+            <div class="interface">
+                <h2 class="titulo">FORMULÁRIO</h2>
+                <form id="form">
+                    <input type="text" name="nome" id="nome" placeholder="Nome" required>
+                    <input type="text" name="matricula" id="matricula" placeholder="Matrícula" required>
+                    <input type="text" name="nota1" id="nota1" placeholder="Nota 1" pattern="[0-9]+([,\.][0-9]+)?" required>
+                    <input type="text" name="nota2" id="nota2" placeholder="Nota 2" pattern="[0-9]+([,\.][0-9]+)?" required>
+                    <div class="enviar">
+                        <input type="submit" value="ENVIAR">
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section id="tabela" class="tabela">
+            <h2>Tabela de Notas</h2>
+            <table id="tabelaAlunos">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Matrícula</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Média</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaCorpo"></tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var nome = document.getElementById("nome").value;
+            var matricula = document.getElementById("matricula").value;
+            var nota1 = parseFloat(document.getElementById("nota1").value.replace(",", "."));
+            var nota2 = parseFloat(document.getElementById("nota2").value.replace(",", "."));
+            var media = (nota1 + nota2) / 2;
+            var situacao = media >= 5 ? "Aprovado" : "Reprovado";
+
+            var tableBody = document.getElementById("tabelaCorpo");
+            var newRow = tableBody.insertRow();
+            newRow.insertCell(0).appendChild(document.createTextNode(nome));
+            newRow.insertCell(1).appendChild(document.createTextNode(matricula));
+            newRow.insertCell(2).appendChild(document.createTextNode(nota1));
+            newRow.insertCell(3).appendChild(document.createTextNode(nota2));
+            newRow.insertCell(4).appendChild(document.createTextNode(media.toFixed(1)));
+            newRow.insertCell(5).appendChild(document.createTextNode(situacao));
+
+            document.getElementById("nome").value = "";
+            document.getElementById("matricula").value = "";
+            document.getElementById("nota1").value = "";
+            document.getElementById("nota2").value = "";
+        });
+    </script>
+
+</body>
+
+</html>
